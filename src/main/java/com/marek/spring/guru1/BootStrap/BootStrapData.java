@@ -34,11 +34,19 @@ public class BootStrapData implements CommandLineRunner {
         marek.setZipCode("59300");
         publisherRepository.save(marek);
 
+        Publisher albatros = new Publisher();
+        albatros.setName("Albatros Sp. z o.o");
+        albatros.setAddressLine("Hlonda");
+        albatros.setCity("Warszawa");
+        albatros.setZipCode("02972");
+        publisherRepository.save(albatros);
+
 
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "23131");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
+
         ddd.setPublisher(marek);
         marek.getBooks().add(ddd);
 
@@ -46,9 +54,20 @@ public class BootStrapData implements CommandLineRunner {
         bookRepository.save(ddd);
         publisherRepository.save(marek);
 
+        Author king = new Author("Stephen", "King");
+        Book inso = new Book("Insomnia", "5515");
+        king.getBooks().add(inso);
+        inso.getAuthors().add(king);
+
+        inso.setPublisher(albatros);
+        albatros.getBooks().add(inso);
+
+        authorRepository.save(king);
+        bookRepository.save(inso);
+        publisherRepository.save(albatros);
+
         System.out.println("Number of books: " + bookRepository.count());
-        System.out.println(marek.getName());
-        System.out.println("Number of publisher's books: " + publisherRepository.count());
+        System.out.println("Number of publishers: " + publisherRepository.count());
 
     }
 }
